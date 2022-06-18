@@ -8,22 +8,37 @@ int main()
     cout << "***    Welcome to the Guessing Game!   ***" << endl;
     cout << "******************************************" << endl;
 
-    int secret_number = 42;
+    const int SECRET_NUMBER = 42; 
 
-    int guess;
-    cout << "What is your guess: ";
-    cin >> guess;
-    
-    if(guess > secret_number)
+    bool win = false;
+    int attempts = 0;
+
+    do
     {
-        cout << "Your guess was greater that the secret number!\n";
-    }
-    else if(guess < secret_number)
-    {
-        cout << "Your guess was less that the secret number!\n";
-    }
-    else
-    {
-        cout << "Congratulations! You got it rignt!\n";        
-    }
+        attempts++;
+
+        int guess;
+        cout << "Attempt: " << attempts << endl << endl;
+        cout << "What is your guess: ";
+        cin >> guess;
+        
+        bool greater = guess > SECRET_NUMBER;
+        bool less = guess < SECRET_NUMBER;
+        
+        if(greater)
+        {
+            cout << "Your guess was GREATER that the secret number!\n";
+        }
+        else if(less)
+        {
+            cout << "Your guess was LESS that the secret number!\n";
+        }
+        else
+        {
+            cout << "Congratulations! You got it rignt!\n";  
+            win = 1;      
+        }
+    }while(!win);
+    cout << "End game!" << endl;
+    cout << "You won in " << attempts << (attempts>1 ? " Attempts" : " Attempt") << endl;
 }
