@@ -1,4 +1,7 @@
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
+
 using namespace std;
 
 int main()
@@ -8,19 +11,32 @@ int main()
     cout << "***    Welcome to the Guessing Game!   ***" << endl;
     cout << "******************************************" << endl;
 
-    const int SECRET_NUMBER = 42; 
+    cout << "Choose the difficulty: \n";
+    cout << "Easy (E)     Normal (N)     Hard(H)\n";
 
-    bool win = false;
-    int attempts = 0;
+    char difficulty;
+    cin >> difficulty;
 
+    int total_of_attempts;
+
+    if(difficulty == 'E') total_of_attempts = 15;
+    else if(difficulty == 'N') total_of_attempts = 10;
+    else total_of_attempts = 5;
+
+
+    srand(time(NULL));
+    const int SECRET_NUMBER = rand()%100; 
+ 
     float pontuation = 1000.0;
 
-    do
-    {
-        attempts++;
+    int attempt;
 
+    bool win = false;
+
+    for(attempt = 1; attempt <= total_of_attempts; attempt++)
+    {
         int guess;
-        cout << "Attempt: " << attempts << endl << endl;
+        cout << "Attempt: " << attempt << endl << endl;
         cout << "What is your guess: ";
         cin >> guess;
 
@@ -40,15 +56,25 @@ int main()
         }
         else
         {
-            cout << "Congratulations! You got it rignt!\n";  
-            win = 1; 
+            cout << "Congratulations! You got it rignt!\n"; 
+            win = true; 
+            break;
                  
         }
-    }while(!win);
+    }
     cout << "End game!" << endl;
-    cout << "You won in " << attempts << (attempts>1 ? " Attempts!" : " Attempt!") << endl;
+
+    if(!win)
+    {
+        cout << "You lost the game! Try again!\n";
+    }else
+    {
+    cout << "You won in " << attempt << (attempt>1 ? " Attempts!" : " Attempt!") << endl;
 
     cout.precision(2);
     cout << fixed;
     cout << "Your Score was: " << pontuation << (pontuation>1 ? " Points!" : " Point!") << endl; 
+
+    }
+
 }
